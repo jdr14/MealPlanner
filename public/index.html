@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner Frontend</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<!-- <body>
+    <h1>Hello from the Frontend!</h1>
+    <button id="fetchButton">Fetch Data</button>
+    <div id="dataContainer"></div>
+    <script src="script.js"></script>
+</body> -->
+
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <button class="toolbar-item" onclick="showSection('recipes')">Recipes</button>
+            <button class="toolbar-item" onclick="showSection('ingredients')">Ingredients On Hand</button>
+            <button class="toolbar-item" onclick="showSection('available-meals')">Available Meals</button>
+        </div>
+
+        <div id="recipes" class="section">
+            <h1>Meal Aid</h1>
+            <div class="input-container">
+                <input type="text" id="recipe-name" class="input" placeholder="Enter recipe name">
+                <input type="text" id="recipe-ingredients" class="input" placeholder="Required Ingredients (comma-separated)">
+                <button class="add-button" onclick="addRecipe()">Add Recipe</button>
+            </div>
+            <div class="recipe-section">
+                <h2>Available Recipes</h2>
+                <div id="recipe-list"></div>
+            </div>
+        </div>
+
+        <div id="ingredients" class="section" style="display:none;">
+            <h1>Ingredients On Hand</h1>
+            <div class="input-container">
+                <input type="text" id="ingredient-name" class="input" placeholder="Enter ingredient name">
+                <button class="add-button" onclick="addIngredient()">Add Ingredient</button>
+            </div>
+            <div class="recipe-section">
+                <h2>Available Ingredients</h2>
+                <div id="ingredient-list"></div>
+            </div>
+        </div>
+
+        <div id="available-meals" class="section" style="display:none;">
+            <h1>Available Meals</h1>
+            <div class="recipe-section">
+                <h2>Meals you can make</h2>
+                <div id="available-meals-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
