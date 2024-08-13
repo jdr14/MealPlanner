@@ -6,13 +6,6 @@
     <title>Meal Planner Frontend</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<!-- <body>
-    <h1>Hello from the Frontend!</h1>
-    <button id="fetchButton">Fetch Data</button>
-    <div id="dataContainer"></div>
-    <script src="script.js"></script>
-</body> -->
-
 <body>
     <div class="container">
         <div class="toolbar">
@@ -26,7 +19,7 @@
             <div class="input-container">
                 <input type="text" id="recipe-name" class="input" placeholder="Enter recipe name">
                 <input type="text" id="recipe-ingredients" class="input" placeholder="Required Ingredients (comma-separated)">
-                <button class="add-button" onclick="addRecipe()">Add Recipe</button>
+                <button class="add-button" id="add-recipe-button" onclick="addRecipe()">Add Recipe</button>
             </div>
             <div class="recipe-section">
                 <h2>Available Recipes</h2>
@@ -55,6 +48,55 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Function to show a specific section
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Function to handle adding a recipe
+        async function addRecipe() {
+            const recipeName = document.getElementById('recipe-name').value;
+            const recipeIngredients = document.getElementById('recipe-ingredients').value;
+
+            const response = await fetch('/api/add-recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    recipe: recipeName,
+                    ingredients: recipeIngredients
+                })
+            });
+
+            const data = await response.json();
+            console.log(data);
+            // Update UI with the received data
+        }
+
+        // Function to handle adding an ingredient
+        async function addIngredient() {
+            const ingredientName = document.getElementById('ingredient-name').value;
+
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: ingredientName
+                })
+            });
+
+            const data = await response.json();
+            console.log(data);
+            // Update UI with the received data
+        }
+    </script>
 </body>
 </html>
