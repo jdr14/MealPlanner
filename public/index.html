@@ -90,6 +90,17 @@
         function displayRecipe(name, ingredients) {
             const recipeList = document.getElementById('recipe-list');
             const recipeDiv = document.createElement('div');
+            const editDeleteDiv = document.createElement('div');
+            
+            editDeleteDiv.className = 'edit-delete-receipe'
+            const editButton = document.createElement('button');
+
+            editButton.className = 'edit-recipe';
+            editButton.textContent = 'edit';
+            const deleteButton = document.createElement('button');
+
+            deleteButton.className = 'delete-recipe';
+            deleteButton.textContent = 'delete';
             recipeDiv.classList.add('recipe-widget');
 
             const recipeTitle = document.createElement('h3');
@@ -102,8 +113,12 @@
                 ingredientList.appendChild(listItem);
             });
 
+            editDeleteDiv.appendChild(editButton);
+            editDeleteDiv.appendChild(deleteButton);
+
             recipeDiv.appendChild(recipeTitle);
             recipeDiv.appendChild(ingredientList);
+            recipeDiv.appendChild(editDeleteDiv);
             recipeList.appendChild(recipeDiv);
         }
 
