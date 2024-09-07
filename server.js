@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const axios = require('axios');
 const app = express();
 const PORT = 4000;
 
@@ -13,17 +14,25 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Handle submission of a recipe
 app.post('/api/add-recipe', (req, res) => {
-    const { recipe, ingredients } = req.body;
-    console.log('Received recipe:', recipe);
-    console.log('Received ingredients:', ingredients); // This should be an array
+    const data = req.body;
+    console.log('Received data:', data);
 
     // Send a response back to the front end
     res.json({
-        message: 'Recipe received successfully',
-        receivedRecipe: recipe,
-        receivedIngredients: ingredients
+        message: 'Data received successfully',
+        receivedData: data
+    });
+});
+
+app.post('/api/add-ingredient', (req, res) => {
+    const data = req.body;
+    console.log('Received data:', data);
+
+    // Send a response back to the front end
+    res.json({
+        message: 'Data received successfully',
+        receivedData: data
     });
 });
 

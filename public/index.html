@@ -15,22 +15,27 @@
         </div>
 
         <div id="recipes" class="section">
-            <h1>Meal Aid</h1>
-            <div class="input-container">
-                <input type="text" id="recipe-name" class="input" placeholder="Enter recipe name">
-                <input type="text" id="recipe-ingredients" class="input" placeholder="Required Ingredients (comma-separated)">
-                <button class="add-button" id="add-recipe-button" onclick="addRecipe()">Add Recipe</button>
-            </div>
-            <div class="recipe-section">
-                <h2>Available Recipes</h2>
-                <div id="recipe-list"></div>
+            <div class="recipes-container">
+                <div class="recipes-add-section">
+                    <h2>Add Recipe</h2>
+                    <div class="input-container">
+                        <input type="text" id="recipe-name" class="input" placeholder="Recipe name">
+                        <input type="text" id="recipe-ingredients" class="input" placeholder="Required Ingredients (comma-separated)">
+                        <button class="add-button" id="add-recipe-button" onclick="addRecipe()">Add Recipe</button>
+                    </div>
+                </div>
+
+                <div class="recipes-list-section">
+                    <h2>Available Recipes</h2>
+                    <div id="recipe-list"></div> <!-- This is where the recipes will be displayed -->
+                </div>
             </div>
         </div>
 
         <div id="ingredients" class="section" style="display:none;">
-            <h1>Ingredients On Hand</h1>
             <div class="input-container">
-                <input type="text" id="ingredient-name" class="input" placeholder="Enter ingredient name">
+                <input type="text" id="ingredient-name" class="input" placeholder="Ingredient name">
+                <input type="text" id="ingredient-amount" class="input" placeholder="Amount">
                 <button class="add-button" onclick="addIngredient()">Add Ingredient</button>
             </div>
             <div class="recipe-section">
@@ -76,20 +81,45 @@
 
             const data = await response.json();
             console.log(data);
-            // Update UI with the received data
+
+            // Call function to display the new recipe
+            displayRecipe(recipeName, recipeIngredients);
+        }
+
+        // Function to display a recipe dynamically in the UI
+        function displayRecipe(name, ingredients) {
+            const recipeList = document.getElementById('recipe-list');
+            const recipeDiv = document.createElement('div');
+            recipeDiv.classList.add('recipe-widget');
+
+            const recipeTitle = document.createElement('h3');
+            recipeTitle.textContent = name;
+
+            const ingredientList = document.createElement('ul');
+            ingredients.split(',').forEach(ingredient => {
+                const listItem = document.createElement('li');
+                listItem.textContent = ingredient.trim();
+                ingredientList.appendChild(listItem);
+            });
+
+            recipeDiv.appendChild(recipeTitle);
+            recipeDiv.appendChild(ingredientList);
+            recipeList.appendChild(recipeDiv);
         }
 
         // Function to handle adding an ingredient
         async function addIngredient() {
             const ingredientName = document.getElementById('ingredient-name').value;
+            const ingredientAmount = document.getElementById('ingredient-amount').value;
 
-            const response = await fetch('/submit', {
+            const response = await fetch('/api/add-ingredient', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name: ingredientName
+                    name: ingredientName,
+                    amount: ingredientAmount
                 })
             });
 
